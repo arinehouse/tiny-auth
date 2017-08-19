@@ -42,7 +42,7 @@ app.get('/', AuthController.isLoggedIn, (req, res) => {
 // signup route
 app.route('/signin')
   .get((req, res) => {
-    res.render('signin');
+    res.render('signin', { user: null });
   })
   .post(passport.authenticate('local-signin', {
     successRedirect: '/',
@@ -52,7 +52,7 @@ app.route('/signin')
 // signup route
 app.route('/signup')
   .get((req, res) => {
-    res.render('signup');
+    res.render('signup', { user: null });
   })
   .post(passport.authenticate('local-signup', {
     successRedirect: '/',

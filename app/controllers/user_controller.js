@@ -3,7 +3,7 @@ import * as ButtonController from './button_controller';
 
 export const logout = (req, res) => {
   req.session.destroy((err) => {
-    res.redirect('/');
+    res.redirect('/signin');
   });
 };
 

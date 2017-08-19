@@ -5,7 +5,7 @@ const Button = sequelize.define(('button'), {
   numClicks: { type: Sequelize.INTEGER },
 });
 
-Button.sync({ force: true }).then(() => {
+Button.sync().then(() => {
   return Button.create({
     numClicks: 0,
   });
