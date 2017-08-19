@@ -7,6 +7,6 @@ const User = sequelize.define(('user'), {
   pressedButton: { type: Sequelize.BOOLEAN, defaultValue: false },
 });
 
-User.sync({ force: true });
+User.sync();
 
 export default User;

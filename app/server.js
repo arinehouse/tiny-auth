@@ -2,7 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import path from 'path';
+import session from 'express-session';
 import * as UserController from './controllers/user_controller';
+import * as AuthController from './controllers/auth_controller';
+import passport from './services/passport';
 
 // initialize
 const app = express();
@@ -20,24 +23,44 @@ app.set('views', path.join(__dirname, '../app/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(session({
+  secret: process.env.AUTH_SECRET,
+  saveUninitialized: true,
+  resave: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // default index route
-app.get('/', (req, res) => {
-  res.render('index', {});
+app.get('/', AuthController.isLoggedIn, (req, res) => {
+  UserController.fetchUser(req.user.id).then((user) => {
+    res.render('index', { user });
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
 // signin route
 app.route('/signin')
   .get((req, res) => {
-    res.render('signin', {});
+    res.render('signin');
   })
-  .post(UserController.signIn);
+  .post(passport.authenticate('local-signin', {
+    succesRedirect: '/',
+    failureRedirect: '/signin',
+  }));
 
 // signup route
 app.route('/signup')
   .get((req, res) => {
-    res.render('signup', {});
+    res.render('signup');
   })
-  .post(UserController.signUp);
+  .post(passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/signup',
+  }));
+
+app.get('/logout', UserController.logout);
 
 // START THE SERVER
 // =============================================================================

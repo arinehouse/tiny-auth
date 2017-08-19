@@ -2,6 +2,11 @@
   <% include partials/head %>
   <body>
     <h1>Welcome!</h1>
-    <h3>Please <a href="/signin">sign in</a> or <a href="signup">sign up</a>.</h3>
+    <p>I see that you've signed in. Go ahead and click the button below!</p>
+    <% if (user.pressedButton) { %>
+      <p>You&aposve already pressed the button!</p>
+    <% } else { %>
+      <button>Click me!</button>
+    <% } %>
   </body>
 </html>
