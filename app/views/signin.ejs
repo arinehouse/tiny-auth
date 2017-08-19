@@ -1,15 +1,18 @@
 <html>
   <% include partials/head %>
   <body>
+    <% include partials/background %>
     <% include partials/nav %>
-    <p>Welcome! Please sign in below:</p>
-    <form action="/signin" method="post">
-      <label>Email:</label>
-      <input required name="email" id="email" type="email" placeholder="yourname@example.com">
-      <label>Password:</label>
-      <input required name="password" id="password" type="password" placeholder="password">
-      <button type="submit">Log In</button>
-    </form>
-    <p>New user? <a href="/signup">Sign Up!</a></p>
+    <div class="container">
+      <p>Welcome! Please sign in below:</p>
+      <form action="/signin" method="post">
+        <label>Email:</label>
+        <input required name="email" id="email" type="email" placeholder="yourname@example.com">
+        <label>Password:</label>
+        <input required name="password" id="password" type="password" placeholder="password">
+        <input type="submit" class="button"></input>
+      </form>
+      <p>New user? <a href="/signup">Sign Up!</a></p>
+    </div>
   </body>
 </html>

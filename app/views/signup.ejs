@@ -1,17 +1,21 @@
 <html>
   <% include partials/head %>
   <body>
+    <% include partials/background %>
     <% include partials/nav %>
-    <p>New user? Please sign up below:</p>
-    <form action="/signup" method="post">
-      <label>Email:</label>
-      <input required name="email" id="email" type="email" placeholder="yourname@example.com">
-      <label>Password:</label>
-      <input required name="password" id="password" type="password" placeholder="password">
-      <label>Repeat Password:</label>
-      <input required name="passwordRepeat" id="passwordRepeat" type="password" placeholder="repeat password">
-      <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+      <p>New user? Please sign up below:</p>
+      <form action="/signup" method="post">
+        <label>Email:</label>
+        <input required name="email" id="email" type="email" placeholder="yourname@example.com">
+        <label>Password:</label>
+        <input required name="password" id="password" type="password" placeholder="password">
+        <label>Repeat Password:</label>
+        <input required name="passwordRepeat" id="passwordRepeat" type="password" placeholder="repeat password">
+        <input type="submit" value="Submit" class="button">
+      </form>
+      <p>Already have an account? <a href="/signin">Sign in!</a><p>
+    </div>
 
     <script>
       document.getElementById("passwordRepeat").onchange = validate;

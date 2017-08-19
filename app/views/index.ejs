@@ -1,20 +1,23 @@
 <html>
   <% include partials/head %>
   <body>
+    <% include partials/background %>
     <% include partials/nav %>
-    <h1>Welcome, <%= user.email %>!</h1>
-    <p>I see that you've signed in. Go ahead and click the button below!</p>
-    <% if (user.pressedButton) { %>
-      <button id='mybutton'>Click me!</button>
-    <% } else { %>
-      <button data-id="<%=button.id%>" data-userid="<%=user.id%>" class="clickable">Click me!</button>
-    <% } %>
-    <p> Times clicked: <%= button.numClicks %> </p>
+    <div class="container">
+      <h1>Welcome, <%= user.email %>!</h1>
+      <p>You're all signed in. If you haven't done so yet, click the button below!</p>
+      <% if (user.pressedButton) { %>
+        <button class="fakeButton" id='mybutton'>Click me!</button>
+      <% } else { %>
+        <button class="clickable button" data-id="<%=button.id%>" data-userid="<%=user.id%>">Click me!</button>
+      <% } %>
+      <p> (Button clicked by <%= button.numClicks %> unique users)</p>
+    </div>
   </body>
   <script>
     $('.clickable').on('click', () => {
       event.preventDefault();
-      $(this).removeClass('clickable');
+      $(this).removeClass('clickable button');
       var buttonid = $(event.currentTarget).data('id');
       var userid = $(event.currentTarget).data('userid');
       $.ajax({
