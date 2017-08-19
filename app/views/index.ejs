@@ -18,11 +18,8 @@
       var userid = $(event.currentTarget).data('userid');
       $.ajax({
         type: "POST",
-        url: "/button/" + buttonid + "/inc",
-      }).done(location.reload());
-      $.ajax({
-        type: "POST",
         url: "/user/" + userid + "/push",
+        data: { buttonid },
       }).done(location.reload());
     });
   </script>

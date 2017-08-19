@@ -5,8 +5,8 @@ export const fetchButton = () => {
   return Button.findAll({});
 };
 
-export const increment = (req, res) => {
-  return Button.findById(req.params.id).then((button) => {
+export const increment = (id) => {
+  return Button.findById(id).then((button) => {
     button.numClicks += 1;
     button.save();
   });

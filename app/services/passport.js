@@ -50,13 +50,11 @@ passport.use('local-signin', new LocalStrategy(
 
 // serialize
 passport.serializeUser((user, done) => {
-  console.log(user.id);
   done(null, user.id);
 });
 
 // deserialize user
 passport.deserializeUser((id, done) => {
-  console.log(`deserialize id: ${id}`);
   User.findById(id).then((user) => {
     if (user) {
       done(null, user.get());

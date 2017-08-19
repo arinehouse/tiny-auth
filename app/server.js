@@ -35,7 +35,6 @@ app.use(passport.session());
 // default index route
 app.get('/', AuthController.isLoggedIn, (req, res) => {
   ButtonController.fetchButton().then((buttons) => {
-    console.log(buttons[0]);
     res.render('index', { user: req.user, button: buttons[0] });
   });
 });
