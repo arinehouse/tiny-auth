@@ -40,13 +40,13 @@ app.get('/', AuthController.isLoggedIn, (req, res) => {
   });
 });
 
-// signin route
+// signup route
 app.route('/signin')
   .get((req, res) => {
     res.render('signin');
   })
   .post(passport.authenticate('local-signin', {
-    succesRedirect: '/',
+    successRedirect: '/',
     failureRedirect: '/signin',
   }));
 
