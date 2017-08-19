@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import path from 'path';
+import * as UserController from './controllers/user_controller';
 
 // initialize
 const app = express();
@@ -19,11 +20,24 @@ app.set('views', path.join(__dirname, '../app/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 // default index route
 app.get('/', (req, res) => {
-  res.send('hi');
+  res.render('index', {});
 });
+
+// signin route
+app.route('/signin')
+  .get((req, res) => {
+    res.render('signin', {});
+  })
+  .post(UserController.signIn);
+
+// signup route
+app.route('/signup')
+  .get((req, res) => {
+    res.render('signup', {});
+  })
+  .post(UserController.signUp);
 
 // START THE SERVER
 // =============================================================================
