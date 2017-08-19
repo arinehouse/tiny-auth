@@ -3,11 +3,21 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-// initialize MySQL with sequelize
-const sequelize = new Sequelize('tinyauth', 'root', process.env.PASSWORD, {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+let sequelize;
+
+if (process.env.DATABASE_URL) {
+   // the application is executed on Heroku, so use the postgres database
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+  });
+} else {
+   // the application is executed on the local machine, use mysql instead
+  sequelize = new Sequelize('tinyauth', 'root', process.env.PASSWORD, {
+    host: 'localhost',
+    dialect: 'mysql',
+  });
+}
 
 sequelize.authenticate()
 .then(() => {
