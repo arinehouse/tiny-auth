@@ -4,13 +4,32 @@
     <% include partials/nav %>
     <p>New user? Please sign up below:</p>
     <form action="/signup" method="post">
-      <p>Email:</p>
-      <input name="email" id="email" type="text" placeholder="yourname@example.com">
-      <p>Password:</p>
-      <input name="password" id="password" type="text" placeholder="password">
-      <p>Repeat Password:</p>
-      <input name="passwordRepeat" id="passwordRepeat" type="text" placeholder="repeat password">
-      <button type="submit">Go!</button>
+      <label>Email:</label>
+      <input required name="email" id="email" type="email" placeholder="yourname@example.com">
+      <label>Password:</label>
+      <input required name="password" id="password" type="password" placeholder="password">
+      <label>Repeat Password:</label>
+      <input required name="passwordRepeat" id="passwordRepeat" type="password" placeholder="repeat password">
+      <input type="submit" value="Submit">
     </form>
+
+    <script>
+      document.getElementById("passwordRepeat").onchange = validate;
+
+      function validate() {
+        var password = document.getElementById("password");
+        var passwordRepeat = document.getElementById("passwordRepeat");
+        console.log(password.value);
+        console.log(passwordRepeat.value);
+        if (password.value !== passwordRepeat.value) {
+          console.log("PASSWORDS DO NOT MATCH");
+          passwordRepeat.setCustomValidity("Passwords do not match.");
+          return false;
+        } else {
+          passwordRepeat.setCustomValidity("");
+          return true;
+        }
+      }
+    </script>
   </body>
 </html>

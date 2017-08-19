@@ -21,7 +21,7 @@
         type: "POST",
         url: "/user/" + userid + "/push",
         data: { buttonid },
-      }).done(location.reload());
+      }).done(setTimeout(() => { location.reload() }, 200));
     });
   </script>
 </html>

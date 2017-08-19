@@ -20,10 +20,12 @@ passport.use('local-signup', new LocalStrategy(
         };
         return User.create(newuser).then((newUser) => {
           if (!newUser) {
-            return done(null, false);
+            return done(null, false, { message: 'Failed to create new user' });
           } else {
             return done(null, newUser);
           }
+        }).catch((err) => {
+          return done(null, false, { message: 'Invalid email' });
         });
       }
     });
@@ -38,9 +40,9 @@ passport.use('local-signin', new LocalStrategy(
   (email, password, done) => {
     User.findOne({ where: { email } }).then((user) => {
       if (!user) {
-        return done(null, false);
+        return done(null, false, { message: 'Email not registered' });
       } else if (user.password !== password) {
-        return done(null, false);
+        return done(null, false, { message: 'Invalid password' });
       } else {
         return done(null, user);
       }
