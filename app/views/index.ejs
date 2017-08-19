@@ -1,12 +1,29 @@
 <html>
   <% include partials/head %>
   <body>
-    <h1>Welcome!</h1>
+    <h1>Welcome, <%= user.email %>!</h1>
     <p>I see that you've signed in. Go ahead and click the button below!</p>
     <% if (user.pressedButton) { %>
-      <p>You&aposve already pressed the button!</p>
+      <button id='mybutton'>Click me!</button>
     <% } else { %>
-      <button>Click me!</button>
+      <button data-id="<%=button.id%>" data-userid="<%=user.id%>" class="clickable">Click me!</button>
     <% } %>
+    <p> Times clicked: <%= button.numClicks %> </p>
   </body>
+  <script>
+    $('.clickable').on('click', () => {
+      event.preventDefault();
+      $(this).removeClass('clickable');
+      var buttonid = $(event.currentTarget).data('id');
+      var userid = $(event.currentTarget).data('userid');
+      $.ajax({
+        type: "POST",
+        url: "/button/" + buttonid + "/inc",
+      }).done(location.reload());
+      $.ajax({
+        type: "POST",
+        url: "/user/" + userid + "/push",
+      }).done(location.reload());
+    });
+  </script>
 </html>

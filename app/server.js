@@ -5,6 +5,7 @@ import path from 'path';
 import session from 'express-session';
 import * as UserController from './controllers/user_controller';
 import * as AuthController from './controllers/auth_controller';
+import * as ButtonController from './controllers/button_controller';
 import passport from './services/passport';
 
 // initialize
@@ -33,10 +34,9 @@ app.use(passport.session());
 
 // default index route
 app.get('/', AuthController.isLoggedIn, (req, res) => {
-  UserController.fetchUser(req.user.id).then((user) => {
-    res.render('index', { user });
-  }).catch((err) => {
-    console.log(err);
+  ButtonController.fetchButton().then((buttons) => {
+    console.log(buttons[0]);
+    res.render('index', { user: req.user, button: buttons[0] });
   });
 });
 
@@ -61,6 +61,10 @@ app.route('/signup')
   }));
 
 app.get('/logout', UserController.logout);
+
+app.post('/button/:id/inc', ButtonController.increment);
+
+app.post('/user/:id/push', UserController.buttonPressed);
 
 // START THE SERVER
 // =============================================================================

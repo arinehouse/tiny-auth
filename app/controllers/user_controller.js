@@ -10,7 +10,10 @@ export const fetchUser = (id) => {
   return User.findById(id);
 };
 
-export const pushButton = (user) => {
-  // Takes a user object, and if they have not yet pushed the button,
-  // increments the button counter by one.
+// Takes a user object, and if they have not yet pushed the button,
+export const buttonPressed = (req, res) => {
+  User.findById(req.params.id).then((user) => {
+    user.pressedButton = true;
+    user.save();
+  });
 };
