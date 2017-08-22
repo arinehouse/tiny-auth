@@ -1,3 +1,10 @@
+/** San Francisco Regular */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url('./SanFranciscoText-Regular.otf');
+}
+
 html {
   box-sizing: border-box;
 }
@@ -10,6 +17,7 @@ html {
   color: white;
   font-size: 20pt;
   margin-top: 40px;
+  font-family: 'San Francisco', sans-serif;
 }
 
 a {
