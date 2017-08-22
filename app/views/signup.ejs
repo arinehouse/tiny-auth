@@ -21,7 +21,7 @@
     </div>
 
     <script>
-      document.getElementById("passwordRepeat").onchange = validate;
+      document.getElementById("passwordRepeat").oninput = validate;
 
       function validate() {
         var password = document.getElementById("password");
