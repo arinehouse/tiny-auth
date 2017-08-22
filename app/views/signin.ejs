@@ -6,6 +6,9 @@
     <div class="container">
       <p>Welcome! Please sign in below:</p>
       <form action="/signin" method="post">
+        <% if (flash) { %>
+          <div class="flashMessage"><%= flash %></div>
+        <% } %>
         <label>Email:</label>
         <input required name="email" id="email" type="email" placeholder="yourname@example.com">
         <label>Password:</label>

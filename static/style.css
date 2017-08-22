@@ -65,6 +65,13 @@ form {
   padding: 10px;
 }
 
+.flashMessage {
+  font-size: 12pt;
+  margin: 10px;
+  font-weight: bold;
+  color: rgb(200, 0, 0);
+}
+
 form label {
   margin: 10px;
   font-size: 16pt;
@@ -75,6 +82,9 @@ form input {
   height: 40px;
   margin: 10px;
   font-size: 14pt;
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
 }
 
 .button {

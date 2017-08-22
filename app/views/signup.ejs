@@ -4,8 +4,11 @@
     <% include partials/background %>
     <% include partials/nav %>
     <div class="container">
-      <p>New user? Please sign up below:</p>
+      <p>New user? Please register a new email:</p>
       <form action="/signup" method="post">
+        <% if (flash) { %>
+          <div class="flashMessage"><%= flash %></div>
+        <% } %>
         <label>Email:</label>
         <input required name="email" id="email" type="email" placeholder="yourname@example.com">
         <label>Password:</label>

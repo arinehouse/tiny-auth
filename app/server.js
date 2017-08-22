@@ -58,7 +58,7 @@ app.get('/', AuthController.isLoggedIn, (req, res) => {
 // signup route
 app.route('/signin')
   .get((req, res) => {
-    res.render('signin', { user: null });
+    res.render('signin', { user: null, flash: req.flash('message') });
   })
   .post(passport.authenticate('local-signin', {
     successRedirect: '/',
@@ -69,7 +69,7 @@ app.route('/signin')
 // signup route
 app.route('/signup')
   .get((req, res) => {
-    res.render('signup', { user: null });
+    res.render('signup', { user: null, flash: req.flash('message') });
   })
   .post(passport.authenticate('local-signup', {
     successRedirect: '/',
