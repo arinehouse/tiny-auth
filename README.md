@@ -17,9 +17,9 @@ $ cd tiny-auth
 $ npm install
 ```
 3. Create a .env file, and add two variables:
-  1. AUTH_SECRET: can be anything, it just needs to be a unique identifier for
-  you so passport can manage your sessions
-  2. PASSWORD: the password for the MySQL root user on your machine
+  - AUTH_SECRET: can be anything, it just needs to be a unique identifier for
+    you so passport can manage your sessions
+  - PASSWORD: the password for the MySQL root user on your machine
 4. Go!
 ```sh
 $ npm start
