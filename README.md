@@ -4,7 +4,27 @@
 ### Access
 The site is deployed to Heroku. You can find it [here](https://thawing-hollows-14330.herokuapp.com/).
 
-Important note: passwords are NOT encrypted on the site. Please do not use any of your real passwords.
+### Running Locally
+If you want to run locally instead of on Heroku, follow these steps:
+
+1. Clone this repo
+```sh
+$ git clone git@github.com:arinehouse/tiny-auth.git
+$ cd tiny-auth
+```
+2. Install dependencies
+```sh
+$ npm install
+```
+3. Create a .env file, and add two variables:
+  1. AUTH_SECRET: can be anything, it just needs to be a unique identifier for
+  you so passport can manage your sessions
+  2. PASSWORD: the password for the MySQL root user on your machine
+4. Go!
+```sh
+$ npm start
+```
+The project will be running at `localhost:9090`.
 
 ### Notes
 
