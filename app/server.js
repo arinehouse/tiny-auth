@@ -28,17 +28,19 @@ const setCustomHeaderFunc = (req, res, next) => {
 
 app.all('*', setCustomHeaderFunc);
 
+// allow use of ejs
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
-// enables static assets from folder static
+
+// enables static assets from static folder
 app.set('views', path.join(__dirname, '../app/views'));
-// this just allows us to render ejs from the ../app/views directory
 
 // enable json message body for posting data to API
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// set up passport
 app.use(session({
   secret: process.env.AUTH_SECRET,
   saveUninitialized: true,
@@ -55,7 +57,7 @@ app.get('/', AuthController.isLoggedIn, (req, res) => {
   });
 });
 
-// signup route
+// signin route
 app.route('/signin')
   .get((req, res) => {
     res.render('signin', { user: null, flash: req.flash('message') });
@@ -77,10 +79,13 @@ app.route('/signup')
     failureFlash: true,
   }));
 
+// logout route (no render, just reroutes to /signin)
 app.get('/logout', UserController.logout);
 
+// backend route to increment button counter
 app.post('/button/:id/inc', ButtonController.increment);
 
+// backend route to set user's pressedButton field to true
 app.post('/user/:id/push', UserController.buttonPressed);
 
 // START THE SERVER
