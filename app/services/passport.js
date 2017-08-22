@@ -1,6 +1,9 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import bcrypt from 'bcrypt';
 import User from '../models/user_model';
+
+const saltRounds = 10;
 
 passport.use('local-signup', new LocalStrategy(
   {
@@ -13,19 +16,24 @@ passport.use('local-signup', new LocalStrategy(
       if (user) {
         return done(null, false, { message: 'Username already taken' });
       } else {
-        const newuser = {
-          email,
-          password,
-          pressedButton: false,
-        };
-        return User.create(newuser).then((newUser) => {
-          if (!newUser) {
-            return done(null, false, { message: 'Failed to create new user' });
-          } else {
-            return done(null, newUser);
-          }
-        }).catch((err) => {
-          return done(null, false, { message: 'Invalid email' });
+        return bcrypt.genSalt(saltRounds, (err, salt) => {
+          return bcrypt.hash(password, salt, (error, hash) => {
+            console.log(hash);
+            const newuser = {
+              email,
+              password: hash,
+              pressedButton: false,
+            };
+            return User.create(newuser).then((newUser) => {
+              if (!newUser) {
+                return done(null, false, { message: 'Failed to create new user' });
+              } else {
+                return done(null, newUser);
+              }
+            }).catch((err) => {
+              return done(null, false, { message: 'Invalid email' });
+            });
+          });
         });
       }
     });
@@ -41,10 +49,14 @@ passport.use('local-signin', new LocalStrategy(
     User.findOne({ where: { email } }).then((user) => {
       if (!user) {
         return done(null, false, { message: 'Email not registered' });
-      } else if (user.password !== password) {
-        return done(null, false, { message: 'Invalid password' });
       } else {
-        return done(null, user);
+        return bcrypt.compare(password, user.password, (err, res) => {
+          if (!res) {
+            return done(null, false, { message: 'Invalid password' });
+          } else {
+            return done(null, user);
+          }
+        });
       }
     });
   },
